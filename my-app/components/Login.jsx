@@ -1,10 +1,19 @@
-import { StyleSheet, View, Image, Dimensions, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Image,
+  Dimensions,
+  Text,
+  TouchableOpacity,
+} from "react-native";
 import React from "react";
 import { Colors } from "@/constants/Colors";
+import { useRouter } from "expo-router";
 
 const { width, height } = Dimensions.get("window");
 
 const Login = () => {
+  const router = useRouter();
   return (
     <View>
       <Image
@@ -25,7 +34,7 @@ const Login = () => {
         </Text>
         <Text
           style={{
-            fontFamily: "firSans-bold",
+            fontFamily: "firaSans-regular",
             textAlign: "center",
             fontSize: 17,
             color: Colors.GRAY,
@@ -38,7 +47,10 @@ const Login = () => {
           an efficient and enjoyable travel experience.
         </Text>
 
-        <View style={styles.button}>
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push("/auth/sign-in")} // Ensure this path matches your routing setup
+        >
           <Text
             style={{
               fontFamily: "firaSans-regular",
@@ -47,9 +59,9 @@ const Login = () => {
               fontSize: 17,
             }}
           >
-            Sign-In with Google
+            Get Started
           </Text>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -75,6 +87,5 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: "#d57d5f",
     marginTop: "30%",
-    cursor: "pointer",
   },
 });
