@@ -2,7 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { Colors } from "../../constants/Colors";
 
-const OptionCard = ({ option, selectTraveler }) => {
+const OptionCard = ({ option, selectedOption }) => {
   return (
     <View
       style={[
@@ -14,9 +14,9 @@ const OptionCard = ({ option, selectTraveler }) => {
           backgroundColor: Colors.LIGHT_GRAY,
           borderRadius: 15,
         },
-        selectTraveler?.id == option?.id && {
-          borderColor: Colors.PRIMARY,
-          borderWidth: 2,
+        selectedOption?.id == option?.id && {
+          borderColor: Colors.BASIC,
+          borderWidth: 3,
         },
       ]}
     >

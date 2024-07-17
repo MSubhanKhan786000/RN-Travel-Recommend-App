@@ -6,7 +6,7 @@ import {
   View,
 } from "react-native";
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigation } from "expo-router";
+import { Link, router, useNavigation } from "expo-router";
 import { Colors } from "../../constants/Colors";
 import { SelectTravelerList } from "../../constants/Options";
 import OptionCard from "../../components/CreateTrip/OptionCard";
@@ -16,14 +16,14 @@ const selectTraveler = () => {
   const [selectTraveler, setSelectedTraveler] = useState();
   const { tripData, setTripData } = useContext(CreateTripContext);
 
-  const navigation = useNavigation();
-  useEffect(() => {
-    navigation.setOptions({
-      headerShown: true,
-      headerTransparent: true,
-      headerTitle: "",
-    });
-  });
+  // const navigation = useNavigation();
+  // useEffect(() => {
+  //   navigation.setOptions({
+  //     headerShown: true,
+  //     headerTransparent: true,
+  //     headerTitle: "",
+  //   });
+  // });
 
   useEffect(() => {
     setTripData({ ...tripData, travelerCount: selectTraveler });
@@ -69,10 +69,10 @@ const selectTraveler = () => {
             <TouchableOpacity
               onPress={() => setSelectedTraveler(item)}
               style={{
-                marginVertical: 10,
+                marginVertical: 5,
               }}
             >
-              <OptionCard option={item} selectTraveler={selectTraveler} />
+              <OptionCard option={item} selectedOption={selectTraveler} />
             </TouchableOpacity>
           )}
         />
@@ -85,16 +85,21 @@ const selectTraveler = () => {
           marginTop: 10,
         }}
       >
-        <Text
-          style={{
-            color: Colors.WHITE,
-            textAlign: "center",
-            fontFamily: "firaSans-medium",
-            fontSize: 20,
-          }}
+        <Link
+          href={"/create-trip/select-dates"}
+          style={{ width: "100%", textAlign: "center" }}
         >
-          Continue
-        </Text>
+          <Text
+            style={{
+              color: Colors.WHITE,
+              textAlign: "center",
+              fontFamily: "firaSans-medium",
+              fontSize: 20,
+            }}
+          >
+            Continue
+          </Text>
+        </Link>
       </TouchableOpacity>
     </View>
   );
