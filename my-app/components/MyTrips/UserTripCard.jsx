@@ -22,12 +22,18 @@ const UserTripCard = ({ trip }) => {
         source={require("../../assets/images/trip.jpeg")}
       /> */}
 
-<Image
-            source={{uri:`https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photo_reference=${formatData(trip?.tripData).locationInfo.photoRef}&key=${process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}`}}
-            style={{
-              height: 100, width: 100, borderRadius: 10
-            }}
-          />
+      <Image
+        source={{
+          uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photo_reference=${
+            formatData(trip?.tripData).locationInfo.photoRef
+          }&key=${process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}`,
+        }}
+        style={{
+          height: 100,
+          width: 100,
+          borderRadius: 10,
+        }}
+      />
       <View>
         <Text
           style={{
