@@ -21,26 +21,8 @@ const Login = () => {
         style={styles.image}
       />
       <View style={styles.container}>
-        <Text
-          style={{
-            fontSize: 30,
-            fontFamily: "firaSans-bold",
-            textAlign: "center",
-            marginTop: 20,
-            color: Colors.PRIMARY,
-          }}
-        >
-          AI TRAVEL PLANNER
-        </Text>
-        <Text
-          style={{
-            fontFamily: "firaSans-regular",
-            textAlign: "center",
-            fontSize: 17,
-            color: Colors.GRAY,
-            marginTop: 8,
-          }}
-        >
+        <Text style={styles.titleText}>AI TRAVEL PLANNER</Text>
+        <Text style={styles.descriptionText}>
           An AI Travel Planner simplifies trip planning with personalized
           recommendations for destinations, accommodations, flights, and
           activities, creating customized itineraries and optimizing routes for
@@ -51,16 +33,7 @@ const Login = () => {
           style={styles.button}
           onPress={() => router.push("/auth/sign-in")} // Ensure this path matches your routing setup
         >
-          <Text
-            style={{
-              fontFamily: "firaSans-regular",
-              textAlign: "center",
-              color: Colors.WHITE,
-              fontSize: 17,
-            }}
-          >
-            Get Started
-          </Text>
+          <Text style={styles.buttonText}>Get Started</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -87,5 +60,25 @@ const styles = StyleSheet.create({
     padding: 15,
     backgroundColor: "#d57d5f",
     marginTop: "30%",
+  },
+  titleText: {
+    fontSize: 30,
+    fontFamily: "firaSans-bold",
+    textAlign: "center",
+    marginTop: 20,
+    color: Colors.PRIMARY,
+  },
+  descriptionText: {
+    fontFamily: "firaSans-regular",
+    textAlign: "center",
+    fontSize: 17,
+    color: Colors.GRAY,
+    marginTop: 8,
+  },
+  buttonText: {
+    fontFamily: "firaSans-regular",
+    textAlign: "center",
+    color: Colors.WHITE,
+    fontSize: 17,
   },
 });

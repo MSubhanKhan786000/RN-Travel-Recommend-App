@@ -1,12 +1,36 @@
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
 import moment from "moment";
 import { Colors } from "../../constants/Colors";
+import { useRouter } from "expo-router";
 
 const UserTripCard = ({ trip }) => {
+  const router = useRouter();
+
   const formatData = data => {
-    return JSON.parse(data);
+    try {
+      return JSON.parse(data);
+    } catch (error) {
+      console.error("Failed to parse JSON:", error);
+      return null;
+    }
   };
+
+  const tripData = formatData(trip?.tripData);
+
+  if (!tripData) {
+    return null; // or return a placeholder component if the data is invalid
+  }
+
+  const handleNavigation = () => {
+    router.push({
+      pathname: "/trip-details",
+      params: {
+        trip: JSON.stringify(trip),
+      },
+    });
+  };
+
   return (
     <View
       style={{
@@ -17,38 +41,34 @@ const UserTripCard = ({ trip }) => {
         alignItems: "center",
       }}
     >
-      {/* <Image
-        style={{ height: 100, width: 100, borderRadius: 10 }}
-        source={require("../../assets/images/trip.jpeg")}
-      /> */}
-
-      <Image
-        source={{
-          uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photo_reference=${
-            formatData(trip?.tripData).locationInfo.photoRef
-          }&key=${process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}`,
-        }}
-        style={{
-          height: 100,
-          width: 100,
-          borderRadius: 10,
-        }}
-      />
-      <View>
-        <Text
-          style={{
-            fontFamily: "firaSans-medium",
-            fontSize: 18,
-            color: Colors.WHITE,
+      <TouchableOpacity onPress={handleNavigation}>
+        <Image
+          source={{
+            uri: `https://maps.googleapis.com/maps/api/place/photo?maxwidth=500&photo_reference=${tripData.locationInfo.photoRef}&key=${process.env.EXPO_PUBLIC_GOOGLE_MAP_KEY}`,
           }}
-        >
-          Destination: {trip.tripPlan?.destination}
-        </Text>
+          style={{
+            height: 100,
+            width: 100,
+            borderRadius: 10,
+          }}
+        />
+      </TouchableOpacity>
+      <View>
+        <TouchableOpacity onPress={handleNavigation}>
+          <Text
+            style={{
+              fontFamily: "firaSans-medium",
+              fontSize: 18,
+              color: Colors.WHITE,
+            }}
+          >
+            Destination: {trip.tripPlan?.destination}
+          </Text>
+        </TouchableOpacity>
         <Text
           style={{ fontFamily: "firaSans-medium", color: Colors.LIGHT_GRAY }}
         >
-          Date:{" "}
-          {moment(formatData(trip.tripData).startDate).format("DD MMM YYYY")}
+          Date: {moment(tripData.startDate).format("DD MMM YYYY")}
         </Text>
         <Text
           style={{ fontFamily: "firaSans-medium", color: Colors.LIGHT_GRAY }}

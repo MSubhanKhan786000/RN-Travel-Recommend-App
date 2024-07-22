@@ -10,11 +10,13 @@ import { Colors } from "../../constants/Colors";
 import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
 import StartNewTripCard from "../../components/MyTrips/StartNewTripCard";
-import { collection, getDoc, getDocs, query, where } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { auth, db } from "../../configs/FirebaseConfiguration";
 import UserTripsList from "../../components/MyTrips/UserTripsList";
+import { useRouter } from "expo-router";
 
 const MyTrip = () => {
+  const router = useRouter();
   const [userTrip, setUserTrip] = useState([]);
   const [loading, setLoading] = useState(false);
   const user = auth.currentUser;
@@ -40,41 +42,41 @@ const MyTrip = () => {
   };
 
   return (
-    <ScrollView
-      style={{
-        padding: 25,
-        paddingTop: 50,
-        backgroundColor: Colors.BASIC,
-        height: "100%",
-      }}
-    >
-      <View
-        style={{
-          display: "flex",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "space-between",
-        }}
-      >
-        <Text
+    <View style={{ flex: 1, backgroundColor: Colors.BASIC }}>
+      <ScrollView contentContainerStyle={{ padding: 25, paddingTop: 50 }}>
+        <View
           style={{
-            fontFamily: "firaSans-bold",
-            fontSize: 35,
-            color: Colors.WHITE,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
           }}
         >
-          MyTrips
-        </Text>
-        <Ionicons name="add-circle-sharp" size={50} color={Colors.WHITE} />
-      </View>
-      {loading && <ActivityIndicator size={"large"} color={Colors.WHITE} />}
+          <Text
+            style={{
+              fontFamily: "firaSans-bold",
+              fontSize: 35,
+              color: Colors.WHITE,
+            }}
+          >
+            MyTrips
+          </Text>
+          <Ionicons
+            name="add-circle-sharp"
+            size={50}
+            color={Colors.WHITE}
+            onPress={() => router.push("/create-trip/search-place")}
+          />
+        </View>
+        {loading && <ActivityIndicator size={"large"} color={Colors.WHITE} />}
 
-      {userTrip.length == 0 ? (
-        <StartNewTripCard />
-      ) : (
-        <UserTripsList userTrips={userTrip} />
-      )}
-    </ScrollView>
+        {userTrip.length === 0 ? (
+          <StartNewTripCard />
+        ) : (
+          <UserTripsList userTrips={userTrip} />
+        )}
+      </ScrollView>
+    </View>
   );
 };
 

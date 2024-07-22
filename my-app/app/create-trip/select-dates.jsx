@@ -88,7 +88,7 @@ const SelectDates = () => {
           allowRangeSelection={true}
           selectedRangeStyle={styles.selectedRangeStyle}
           minDate={new Date()}
-          maxRangeDuration={5}
+          // maxRangeDuration={5}
           selectedDayTextStyle={{
             color: Colors.WHITE,
           }}
